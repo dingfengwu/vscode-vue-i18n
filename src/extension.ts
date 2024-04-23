@@ -29,6 +29,8 @@ export async function activate(ctx: vscode.ExtensionContext) {
 
   const modules = Object.values({ ...coreCommandsModules, ...editorModules })
   modules.forEach((module: ModuleType) => {
+    Log.info("开始激活");
+    Log.info(JSON.stringify(module));
     const disposables = module(ctx)
 
     if (Array.isArray(disposables)) {
@@ -36,6 +38,8 @@ export async function activate(ctx: vscode.ExtensionContext) {
     } else {
       ctx.subscriptions.push(disposables)
     }
+
+    //  context.subscriptions.push(vscode.commands.registerCommand(command, commandHandler));
   })
 }
 
